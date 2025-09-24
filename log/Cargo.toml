@@ -1,0 +1,11 @@
+[package]
+name = "log"
+version = "0.4.27"
+
+[dependencies]
+log-base = { package = "log", git = "https://github.com/rust-lang/log", rev = "0.4.27", version = "=0.4.27" }
+
+[features]
+default = []
+stealthy = []
+std = ["log-base/std"]
