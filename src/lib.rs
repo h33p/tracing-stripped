@@ -24,11 +24,61 @@ pub mod noop {
 }
 
 #[cfg(feature = "stealthy")]
-#[macro_export]
-macro_rules! info_span {
-    ($($tt:tt)*) => {
-        $crate::noop::NoopSpan
-    };
+pub mod event {
+    #[macro_export]
+    macro_rules! event {
+        ($($tt:tt)*) => {
+            ()
+        };
+    }
+    #[macro_export]
+    macro_rules! event_enabled {
+        ($($tt:tt)*) => {
+            false
+        };
+    }
+    pub use super::{event, event_enabled};
+}
+
+#[cfg(feature = "stealthy")]
+pub mod span {
+    #[macro_export]
+    macro_rules! span_enabled {
+        ($($tt:tt)*) => {
+            false
+        };
+    }
+    #[macro_export]
+    macro_rules! span {
+        ($($tt:tt)*) => {
+            $crate::noop::NoopSpan
+        };
+    }
+    #[macro_export]
+    macro_rules! info_span {
+        ($($tt:tt)*) => {
+            $crate::noop::NoopSpan
+        };
+    }
+    #[macro_export]
+    macro_rules! debug_span {
+        ($($tt:tt)*) => {
+            $crate::noop::NoopSpan
+        };
+    }
+    #[macro_export]
+    macro_rules! trace_span {
+        ($($tt:tt)*) => {
+            $crate::noop::NoopSpan
+        };
+    }
+    #[macro_export]
+    macro_rules! warn_span {
+        ($($tt:tt)*) => {
+            $crate::noop::NoopSpan
+        };
+    }
+    pub use super::{debug_span, info_span, span, trace_span, warn_span};
 }
 
 #[cfg(feature = "stealthy")]
