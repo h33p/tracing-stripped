@@ -9,6 +9,6 @@ noop-attr = { version = "0.1", optional = true }
 [features]
 attributes = ["tracing-base/attributes"]
 default = ["std", "attributes"]
-stealthy = ["noop-attr", "tracing-base/max_level_off", "tracing-base/release_max_level_off"]
+stealthy = ["noop-attr"]
 std = ["tracing-base/std"]
 log = ["tracing-base/log"]
