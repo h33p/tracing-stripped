@@ -13,13 +13,8 @@ pub mod unfiltered_tracing {
 
 #[cfg(feature = "stealthy")]
 pub mod noop {
-    #[derive(Clone, Copy)]
-    pub struct NoopSpan;
-
-    impl NoopSpan {
-        pub fn in_scope<T>(self, f: impl FnOnce() -> T) -> T {
-            f()
-        }
+    pub fn noop_span() -> tracing_base::Span {
+        tracing_base::trace_span!("")
     }
 }
 
@@ -38,6 +33,7 @@ pub mod event {
         };
     }
     pub use super::{event, event_enabled};
+    pub use tracing_base::event::*;
 }
 
 #[cfg(feature = "stealthy")]
@@ -51,34 +47,35 @@ pub mod span {
     #[macro_export]
     macro_rules! span {
         ($($tt:tt)*) => {
-            $crate::noop::NoopSpan
+            $crate::noop::noop_span()
         };
     }
     #[macro_export]
     macro_rules! info_span {
         ($($tt:tt)*) => {
-            $crate::noop::NoopSpan
+            $crate::noop::noop_span()
         };
     }
     #[macro_export]
     macro_rules! debug_span {
         ($($tt:tt)*) => {
-            $crate::noop::NoopSpan
+            $crate::noop::noop_span()
         };
     }
     #[macro_export]
     macro_rules! trace_span {
         ($($tt:tt)*) => {
-            $crate::noop::NoopSpan
+            $crate::noop::noop_span()
         };
     }
     #[macro_export]
     macro_rules! warn_span {
         ($($tt:tt)*) => {
-            $crate::noop::NoopSpan
+            $crate::noop::noop_span()
         };
     }
     pub use super::{debug_span, info_span, span, trace_span, warn_span};
+    pub use tracing_base::span::*;
 }
 
 #[cfg(feature = "stealthy")]
@@ -114,4 +111,5 @@ pub mod log {
         };
     }
     pub use super::{debug, error, info, trace, warn};
+    pub use tracing_base::log::*;
 }
