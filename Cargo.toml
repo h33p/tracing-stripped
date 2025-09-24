@@ -1,0 +1,14 @@
+[package]
+name = "tracing"
+version = "0.1.41"
+
+[dependencies]
+tracing-base = { package = "tracing", git = "https://github.com/tokio-rs/tracing", rev = "tracing-0.1.41", version = "=0.1.41" }
+noop-attr = { version = "0.1", optional = true }
+
+[features]
+attributes = ["tracing-base/attributes"]
+default = ["std", "attributes"]
+stealthy = ["noop-attr"]
+std = ["tracing-base/std"]
+log = ["tracing-base/log"]
